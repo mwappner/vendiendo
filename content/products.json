@@ -81,6 +81,13 @@
     ]
   },
   {
+    "id": "mesas_arpillera",
+    "text": "mesas_arpillera.txt",
+    "images": [
+      "mesas_arpillera.jpeg"
+    ]
+  },
+  {
     "id": "mueble",
     "text": "mueble.txt",
     "images": [
