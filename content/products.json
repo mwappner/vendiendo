@@ -1,0 +1,106 @@
+[
+  {
+    "id": "baul",
+    "text": "baul.txt",
+    "images": [
+      "baul.jpeg"
+    ]
+  },
+  {
+    "id": "biblioteca",
+    "text": "biblioteca.txt",
+    "images": [
+      "biblioteca.jpeg"
+    ]
+  },
+  {
+    "id": "bici",
+    "text": "bici.txt",
+    "images": [
+      "bici_1.jpeg",
+      "bici_2.jpeg"
+    ]
+  },
+  {
+    "id": "cajonera_madera",
+    "text": "cajonera_madera.txt",
+    "images": [
+      "cajonera_madera.jpeg"
+    ]
+  },
+  {
+    "id": "cajonera_negra",
+    "text": "cajonera_negra.txt",
+    "images": [
+      "cajonera_negra.jpeg"
+    ]
+  },
+  {
+    "id": "catre",
+    "text": "catre.txt",
+    "images": [
+      "catre_1.jpeg",
+      "catre_2.jpeg"
+    ]
+  },
+  {
+    "id": "escritorio_computadora_cajones",
+    "text": "escritorio_computadora_cajones.txt",
+    "images": [
+      "escritorio_computadora_cajones.jpeg"
+    ]
+  },
+  {
+    "id": "escritorio_grande",
+    "text": "escritorio_grande.txt",
+    "images": [
+      "escritorio_grande.jpeg"
+    ]
+  },
+  {
+    "id": "mesa_comedor",
+    "text": "mesa_comedor.txt",
+    "images": [
+      "mesa_comedor_1.jpeg",
+      "mesa_comedor_2.jpeg"
+    ]
+  },
+  {
+    "id": "mesa_ratona_grande",
+    "text": "mesa_ratona_grande.txt",
+    "images": [
+      "mesa_ratona_grande_1.jpeg",
+      "mesa_ratona_grande_2.jpeg"
+    ]
+  },
+  {
+    "id": "mesa_ratona_plegable",
+    "text": "mesa_ratona_plegable.txt",
+    "images": [
+      "mesa_ratona_plegable.jpeg"
+    ]
+  },
+  {
+    "id": "mueble",
+    "text": "mueble.txt",
+    "images": [
+      "mueble.jpeg"
+    ]
+  },
+  {
+    "id": "silla_escritorio",
+    "text": "silla_escritorio.txt",
+    "images": [
+      "silla_escritorio_1.jpeg",
+      "silla_escritorio_2.jpeg",
+      "silla_escritorio_3.jpeg"
+    ]
+  },
+  {
+    "id": "sillones",
+    "text": "sillones.txt",
+    "images": [
+      "sillones.jpeg"
+    ]
+  }
+]

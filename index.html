@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Venta de Muebles y Objetos</title>
+    <meta
+      name="description"
+      content="Catálogo simple de muebles y objetos usados en venta."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="snap-page">
+      <section class="hero snap-section" aria-labelledby="landing-title">
+        <div class="hero__content">
+          <p class="eyebrow">Objetos usados en buen estado</p>
+          <h1 id="landing-title">Venta de muebles y objetos</h1>
+          <div id="landing-text" class="hero__message" aria-live="polite"></div>
+          <div id="landing-contact" class="hero__contact" aria-live="polite"></div>
+          <a class="button" href="#catalog">Ver artículos</a>
+        </div>
+        <a class="scroll-cue" href="#catalog" aria-label="Ir al catálogo"></a>
+      </section>
+
+      <section id="catalog" class="catalog snap-section" aria-labelledby="catalog-title">
+        <div class="catalog__header">
+          <div>
+            <p class="eyebrow">Catálogo</p>
+            <h2 id="catalog-title">Artículos disponibles</h2>
+          </div>
+          <label class="toggle">
+            <input id="sold-toggle" type="checkbox">
+            <span>Ocultar vendidos</span>
+          </label>
+        </div>
+
+        <div id="status-message" class="status-message" role="status"></div>
+        <div id="product-grid" class="product-grid"></div>
+      </section>
+    </main>
+
+    <dialog id="lightbox" class="lightbox" aria-label="Vista ampliada de imagen">
+      <button class="lightbox__close" type="button" aria-label="Cerrar">×</button>
+      <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Imagen anterior">‹</button>
+      <img id="lightbox-image" alt="">
+      <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Imagen siguiente">›</button>
+      <p id="lightbox-counter" class="lightbox__counter"></p>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
