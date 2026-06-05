@@ -65,7 +65,7 @@ async function init() {
 
 async function fetchText(path, fallback = "") {
   try {
-    const response = await fetch(path);
+    const response = await fetch(path, { cache: "no-store" });
     if (!response.ok) throw new Error(`Could not load ${path}`);
     return (await response.text()).trim();
   } catch (error) {
@@ -76,7 +76,7 @@ async function fetchText(path, fallback = "") {
 
 async function loadProducts() {
   try {
-    const response = await fetch(CONTENT.manifest);
+    const response = await fetch(CONTENT.manifest, { cache: "no-store" });
     if (!response.ok) throw new Error("Manifest not found");
     const manifest = await response.json();
     state.products = await Promise.all(manifest.map(loadProduct));
@@ -105,11 +105,23 @@ async function loadProduct(item) {
 
 function parseProductText(rawText) {
   const lines = rawText.replace(/\r\n/g, "\n").split("\n");
+  while (lines.length > 1 && lines[lines.length - 1].trim() === "") {
+    lines.pop();
+  }
+
+  if (lines.length && lines.length !== 4 && lines.length < 5) {
+    console.warn(
+      `Product text has ${lines.length} lines; expected 5 lines: name, note, price, size, status.`,
+      lines
+    );
+  }
+
   const name = (lines[0] || "").trim();
   const notes = (lines[1] || "").trim();
-  const status = (lines[lines.length - 1] || "").trim();
-  const dimensions = (lines[lines.length - 2] || "").trim();
-  const priceLines = lines.slice(2, -2);
+  const remaining = lines.slice(2);
+  const status = (remaining.pop() || "").trim();
+  const dimensions = (remaining.pop() || "").trim();
+  const priceLines = remaining;
   const price = priceLines.join("\n").replace(/\\n/g, "\n").trim();
 
   return { name, notes, price, dimensions, status };
@@ -190,10 +202,19 @@ function setupMedia(media, product) {
   }
 
   let activeIndex = 0;
+  let swipeStart = null;
+  let didSwipe = false;
   const image = document.createElement("img");
   image.alt = product.name;
   image.src = product.images[activeIndex];
-  image.addEventListener("click", () => openLightbox(product.images, activeIndex, product.name));
+  image.addEventListener("click", (event) => {
+    if (didSwipe) {
+      event.preventDefault();
+      didSwipe = false;
+      return;
+    }
+    openLightbox(product.images, activeIndex, product.name);
+  });
   media.appendChild(image);
 
   if (product.images.length === 1) return;
@@ -208,6 +229,28 @@ function setupMedia(media, product) {
     image.src = product.images[activeIndex];
     counter.textContent = `${activeIndex + 1} / ${product.images.length}`;
   };
+
+  media.addEventListener("pointerdown", (event) => {
+    swipeStart = { x: event.clientX, y: event.clientY };
+    didSwipe = false;
+  });
+  media.addEventListener("pointerup", (event) => {
+    if (!swipeStart) return;
+
+    const deltaX = event.clientX - swipeStart.x;
+    const deltaY = event.clientY - swipeStart.y;
+    swipeStart = null;
+
+    if (Math.abs(deltaX) < 44 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) {
+      return;
+    }
+
+    didSwipe = true;
+    showImage(deltaX > 0 ? activeIndex - 1 : activeIndex + 1);
+  });
+  media.addEventListener("pointercancel", () => {
+    swipeStart = null;
+  });
 
   prev.addEventListener("click", () => showImage(activeIndex - 1));
   next.addEventListener("click", () => showImage(activeIndex + 1));

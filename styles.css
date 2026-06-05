@@ -182,9 +182,14 @@ h2 {
   position: relative;
   overflow: hidden;
   padding: clamp(1.4rem, 4vw, 4rem);
-  background:
+  background-color: var(--bg);
+  background-image:
     linear-gradient(rgba(255, 184, 34, 0.2), rgba(255, 184, 34, 0.2)),
-    url("resources/catalgue_bkg.jpg") center top / cover fixed no-repeat;
+    url("resources/catalgue_bkg.jpg");
+  background-attachment: scroll, fixed;
+  background-position: center top, center top;
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto, cover;
 }
 
 .catalog::before {
@@ -286,6 +291,7 @@ h2 {
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: linear-gradient(135deg, #ffe5a2, #fff8e8 55%, #ffd2df);
+  touch-action: pan-y;
 }
 
 .media img {
@@ -530,7 +536,10 @@ h2 {
   }
 
   .catalog {
-    background-attachment: scroll;
+    background-attachment: scroll, fixed;
+    background-position: center top, center top;
+    background-repeat: no-repeat, repeat-y;
+    background-size: auto, 100vw auto;
   }
 
   .catalog__header {

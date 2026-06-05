@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import http.server
+from functools import partial
 import socketserver
 import subprocess
 import sys
@@ -26,7 +27,14 @@ def main() -> None:
     port = int(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_PORT
     build_manifest()
 
-    handler = http.server.SimpleHTTPRequestHandler
+    class NoCacheHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+        def end_headers(self) -> None:
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
+            super().end_headers()
+
+    handler = partial(NoCacheHTTPRequestHandler, directory=ROOT)
 
     class ReusableTCPServer(socketserver.TCPServer):
         allow_reuse_address = True

@@ -11,6 +11,8 @@ ROOT = Path(__file__).resolve().parent
 PRODUCTS_DIR = ROOT / "content" / "products"
 MANIFEST_PATH = ROOT / "content" / "products.json"
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
+LEGACY_LINE_COUNT = 4
+EXPECTED_MIN_LINE_COUNT = 5
 
 
 def image_sort_key(path: Path) -> tuple[int, str]:
@@ -38,6 +40,36 @@ def matching_images(product_id: str) -> list[str]:
     return [path.name for path in sorted(images, key=image_sort_key)]
 
 
+def product_lines(path: Path) -> list[str]:
+    lines = path.read_text(encoding="utf-8").replace("\r\n", "\n").split("\n")
+    while len(lines) > 1 and not lines[-1].strip():
+        lines.pop()
+    return lines
+
+
+def warn_about_product_text(path: Path) -> None:
+    lines = product_lines(path)
+    line_count = len(lines)
+    warnings = []
+
+    if line_count < LEGACY_LINE_COUNT:
+        warnings.append(
+            "expected 5 lines: name, note, price, size, status"
+        )
+    elif line_count == LEGACY_LINE_COUNT:
+        warnings.append(
+            "uses the old 4-line format; price will be empty"
+        )
+
+    if not (lines[0] if lines else "").strip():
+        warnings.append("missing product name")
+    if not (lines[-1] if lines else "").strip():
+        warnings.append("missing status")
+
+    for warning in warnings:
+        print(f"Warning: {path.relative_to(ROOT)} {warning}.")
+
+
 def build_manifest() -> list[dict[str, object]]:
     if not PRODUCTS_DIR.exists():
         raise FileNotFoundError(f"Missing products directory: {PRODUCTS_DIR}")
@@ -51,6 +83,7 @@ def build_manifest() -> list[dict[str, object]]:
 
     for text_file in text_files:
         product_id = text_file.stem
+        warn_about_product_text(text_file)
         manifest.append(
             {
                 "id": product_id,
