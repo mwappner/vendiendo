@@ -36,6 +36,20 @@
     ]
   },
   {
+    "id": "cama_baja",
+    "text": "cama_baja.txt",
+    "images": [
+      "cama_baja.jpg"
+    ]
+  },
+  {
+    "id": "cama_madera",
+    "text": "cama_madera.txt",
+    "images": [
+      "cama_madera.jpg"
+    ]
+  },
+  {
     "id": "catre",
     "text": "catre.txt",
     "images": [
@@ -55,6 +69,13 @@
     "text": "escritorio_grande.txt",
     "images": [
       "escritorio_grande.jpeg"
+    ]
+  },
+  {
+    "id": "escritorio_melamina",
+    "text": "escritorio_melamina.txt",
+    "images": [
+      "escritorio_melamina.jpg"
     ]
   },
   {
@@ -91,7 +112,15 @@
     "id": "mueble",
     "text": "mueble.txt",
     "images": [
-      "mueble.jpeg"
+      "mueble_1.jpeg",
+      "mueble_2.jpg"
+    ]
+  },
+  {
+    "id": "mueble_guardado",
+    "text": "mueble_guardado.txt",
+    "images": [
+      "mueble_guardado.jpg"
     ]
   },
   {
@@ -107,7 +136,7 @@
     "id": "sillones",
     "text": "sillones.txt",
     "images": [
-      "sillones.jpeg"
+      "sillones.jpg"
     ]
   }
 ]
